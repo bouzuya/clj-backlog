@@ -86,10 +86,11 @@
   [issue-key content]
   (call :backlog.addComment {:key issue-key :content content}))
 
-; TODO: BAPI-27
 (defn add-issue-type
-  []
-  (throw (UnsupportedOperationException.)))
+  [project-id name color]
+  (call :backlog.addIssueType {:project_id project-id
+                               :name name
+                               :color color}))
 
 ; TODO: BAPI-28
 (defn update-issue-type
