@@ -92,10 +92,11 @@
                                :name name
                                :color color}))
 
-; TODO: BAPI-28
 (defn update-issue-type
-  []
-  (throw (UnsupportedOperationException.)))
+  [id name color]
+  (call :backlog.updateIssueType {:id id
+                                  :name name
+                                  :color color}))
 
 ; TODO: BAPI-29
 (defn delete-issue-type
