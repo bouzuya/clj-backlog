@@ -72,7 +72,112 @@
   (call :backlog.createIssue {:projectId project-id
                               :summary  summary}))
 
+; TODO: BAPI-24
+(defn update-issue
+  []
+  (throw (UnsupportedOperationException.)))
+
+; TODO: BAPI-25
+(defn switch-status
+  []
+  (throw (UnsupportedOperationException.)))
+
 (defn add-comment
   [issue-key content]
   (call :backlog.addComment {:key issue-key :content content}))
+
+; TODO: BAPI-27
+(defn add-issue-type
+  []
+  (throw (UnsupportedOperationException.)))
+
+; TODO: BAPI-28
+(defn update-issue-type
+  []
+  (throw (UnsupportedOperationException.)))
+
+; TODO: BAPI-29
+(defn delete-issue-type
+  []
+  (throw (UnsupportedOperationException.)))
+
+; TODO: BAPI-30
+(defn add-version
+  []
+  (throw (UnsupportedOperationException.)))
+
+; TODO: BAPI-31
+(defn update-version
+  []
+  (throw (UnsupportedOperationException.)))
+
+; TODO: BAPI-32
+(defn delete-version
+  []
+  (throw (UnsupportedOperationException.)))
+
+; TODO: BAPI-33
+(defn add-component
+  []
+  (throw (UnsupportedOperationException.)))
+
+; TODO: BAPI-34
+(defn update-component
+  []
+  (throw (UnsupportedOperationException.)))
+
+; TODO: BAPI-35
+(defn delete-component
+  []
+  (throw (UnsupportedOperationException.)))
+
+; TODO: BAPI-36
+(defn get-timeline
+  []
+  (throw (UnsupportedOperationException.)))
+
+; TODO: BAPI-37
+(defn get-project-summary
+  []
+  (throw (UnsupportedOperationException.)))
+
+; TODO: BAPI-38
+(defn get-project-summaries
+  []
+  (throw (UnsupportedOperationException.)))
+
+; TODO: BAPI-39
+(defn get-user
+  []
+  (throw (UnsupportedOperationException.)))
+
+; TODO: BAPI-40
+(defn get-user-icon
+  []
+  (throw (UnsupportedOperationException.)))
+
+; TODO: BAPI-41
+(defn get-activity-types
+  []
+  (throw (UnsupportedOperationException.)))
+
+; TODO: BAPI-42
+(defn get-statuses
+  []
+  (throw (UnsupportedOperationException.)))
+
+; TODO: BAPI-43
+(defn get-resolutions
+  []
+  (throw (UnsupportedOperationException.)))
+
+; TODO: BAPI-44
+(defn get-priorities
+  []
+  (throw (UnsupportedOperationException.)))
+
+; TODO: BAPI-45
+(defn get-custom-fields
+  []
+  (throw (UnsupportedOperationException.)))
 
