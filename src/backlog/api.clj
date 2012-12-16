@@ -44,9 +44,15 @@
   [project-id]
   (call :backlog.getIssueTypes project-id))
 
-(defn get-issue
+(defmulti get-issue class)
+
+(defmethod get-issue String
   [issue-key]
   (call :backlog.getIssue issue-key))
+
+(defmethod get-issue Integer
+  [issue-id]
+  (call :backlog.getIssue issue-id))
 
 (defn get-comments
   [issue-id]
