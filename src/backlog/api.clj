@@ -40,6 +40,10 @@
   [project-id]
   (call :backlog.getUsers project-id))
 
+(defn get-issue-types
+  [project-id]
+  (call :backlog.getIssueTypes project-id))
+
 (defn get-issue
   [issue-key]
   (call :backlog.getIssue issue-key))
