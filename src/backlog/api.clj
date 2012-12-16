@@ -58,6 +58,20 @@
   [issue-id]
   (call :backlog.getComments issue-id))
 
+(defn count-issue
+  [project-id]
+  (throw (UnsupportedOperationException.)))
+
+(defn find-issue
+  [project-id]
+  (throw (UnsupportedOperationException.)))
+
+(defn create-issue
+  [project-id summary]
+  ; TODO: optional arguments
+  (call :backlog.createIssue {:projectId project-id
+                              :summary  summary}))
+
 (defn add-comment
   [issue-key content]
   (call :backlog.addComment {:key issue-key :content content}))
