@@ -1,5 +1,5 @@
 (defproject backlog "0.1.0"
-  :description "backlog API for Clojure (unofficial). "
+  :description "Backlog API for Clojure (unofficial). "
   :url "http://bouzuya.github.com/"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
