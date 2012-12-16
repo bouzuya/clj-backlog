@@ -18,9 +18,15 @@
 ;  []
 ;  (call (get-auth) :backlog.getProjects))
 
-(defn get-project
+(defmulti get-project class)
+
+(defmethod get-project String
   [project-key]
   (call :backlog.getProject project-key))
+
+(defmethod get-project Integer
+  [project-id]
+  (call :backlog.getProject project-id))
 
 (defn get-issue
   [issue-key]
