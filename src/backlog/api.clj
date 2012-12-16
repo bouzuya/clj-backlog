@@ -28,6 +28,10 @@
   [project-id]
   (call :backlog.getProject project-id))
 
+(defn get-components
+  [project-id]
+  (call :backlog.getComponents project-id))
+
 (defn get-issue
   [issue-key]
   (call :backlog.getIssue issue-key))
