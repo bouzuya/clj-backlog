@@ -98,10 +98,13 @@
                                   :name name
                                   :color color}))
 
-; TODO: BAPI-29
 (defn delete-issue-type
-  []
-  (throw (UnsupportedOperationException.)))
+  ([id] (delete-issue-type id nil))
+  ([id substitute-id]
+   (call :backlog.deleteIssueType
+         (into {} (remove (comp nil? val)
+                          {:id id
+                           :substitute_id substitute-id})))))
 
 ; TODO: BAPI-30
 (defn add-version
