@@ -156,9 +156,15 @@
 ;  (call :backlog.getProjectSummaries))
 
 ; TODO: BAPI-39
-(defn get-user
-  []
-  (throw (UnsupportedOperationException.)))
+(defmulti get-user class)
+
+(defmethod get-user String
+  [id]
+  (call :backlog.getUser id))
+
+(defmethod get-user Integer
+  [id]
+  (call :backlog.getUser id))
 
 ; TODO: BAPI-40
 (defn get-user-icon
