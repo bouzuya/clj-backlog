@@ -99,12 +99,11 @@
                                   :color color}))
 
 (defn delete-issue-type
-  ([id] (delete-issue-type id nil))
-  ([id substitute-id]
-   (call :backlog.deleteIssueType
-         (into {} (remove (comp nil? val)
-                          {:id id
-                           :substitute_id substitute-id})))))
+  [id & {:keys [substitute-id]}]
+  (call :backlog.deleteIssueType
+        (into {} (remove (comp nil? val)
+                         {:id id
+                          :substitute_id substitute-id}))))
 
 ; TODO: BAPI-30
 (defn add-version
