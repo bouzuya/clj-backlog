@@ -105,10 +105,14 @@
                          {:id id
                           :substitute_id substitute-id}))))
 
-; TODO: BAPI-30
 (defn add-version
-  []
-  (throw (UnsupportedOperationException.)))
+  [project-id name & {:keys [start-date due-date]}]
+  (call :backlog.addVersion
+        (into {} (remove (comp nil? val)
+                         {:project_id project-id
+                          :name name
+                          :start_date start-date
+                          :due_date due-date}))))
 
 ; TODO: BAPI-31
 (defn update-version
