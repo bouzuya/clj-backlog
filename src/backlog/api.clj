@@ -114,10 +114,15 @@
                           :start_date start-date
                           :due_date due-date}))))
 
-; TODO: BAPI-31
 (defn update-version
-  []
-  (throw (UnsupportedOperationException.)))
+  [id name & {:keys [start-date due-date archived]}]
+  (call :backlog.updateVersion
+        (into {} (remove (comp nil? val)
+                         {:id id
+                          :name name
+                          :start_date start-date
+                          :due_date due-date
+                          :archived archived}))))
 
 ; TODO: BAPI-32
 (defn delete-version
