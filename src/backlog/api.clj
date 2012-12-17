@@ -141,10 +141,10 @@
   [id]
   (call :backlog.deleteComponent id))
 
-; TODO: BAPI-36
-(defn get-timeline
-  []
-  (throw (UnsupportedOperationException.)))
+; FIXME: BAPI-36
+;(defn get-timeline
+;  []
+;  (call :backlog.getTimeline))
 
 ; TODO: BAPI-37
 (defn get-project-summary
