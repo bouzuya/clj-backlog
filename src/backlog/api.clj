@@ -137,10 +137,9 @@
   [id name]
   (call :backlog.updateComponent {:id id :name name}))
 
-; TODO: BAPI-35
 (defn delete-component
-  []
-  (throw (UnsupportedOperationException.)))
+  [id]
+  (call :backlog.deleteComponent id))
 
 ; TODO: BAPI-36
 (defn get-timeline
