@@ -124,10 +124,9 @@
                           :due_date due-date
                           :archived archived}))))
 
-; TODO: BAPI-32
 (defn delete-version
-  []
-  (throw (UnsupportedOperationException.)))
+  [id]
+  (call :backlog.deleteVersion id))
 
 ; TODO: BAPI-33
 (defn add-component
