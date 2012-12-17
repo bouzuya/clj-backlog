@@ -150,10 +150,10 @@
   [project-id]
   (call :backlog.getProjectSummary project-id))
 
-; TODO: BAPI-38
-(defn get-project-summaries
-  []
-  (throw (UnsupportedOperationException.)))
+; FIXME: BAPI-38
+;(defn get-project-summaries
+;  []
+;  (call :backlog.getProjectSummaries))
 
 ; TODO: BAPI-39
 (defn get-user
