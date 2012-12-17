@@ -133,10 +133,9 @@
   (call :backlog.addComponent {:project_id project-id
                                :name name}))
 
-; TODO: BAPI-34
 (defn update-component
-  []
-  (throw (UnsupportedOperationException.)))
+  [id name]
+  (call :backlog.updateComponent {:id id :name name}))
 
 ; TODO: BAPI-35
 (defn delete-component
