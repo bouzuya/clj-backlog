@@ -146,10 +146,9 @@
 ;  []
 ;  (call :backlog.getTimeline))
 
-; TODO: BAPI-37
 (defn get-project-summary
-  []
-  (throw (UnsupportedOperationException.)))
+  [project-id]
+  (call :backlog.getProjectSummary project-id))
 
 ; TODO: BAPI-38
 (defn get-project-summaries
