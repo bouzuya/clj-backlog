@@ -1,22 +1,32 @@
 (ns backlog.api
-  [:require [necessary-evil.core :as xml-rpc]])
+  [:require
+   [clj-http.client :as http]
+   [necessary-evil.core :as xml-rpc]
+   [necessary-evil.methodcall :as mc]
+   [necessary-evil.methodresponse :as mr]
+   [necessary-evil.xml-utils :as xu]])
 
 (declare ^:dynamic *backlog-auth*)
 
+;;; FIXME: this code is necessary-evil's code.
 (defn- call
-  [methodname & args]
-  (let [auth *backlog-auth*]
-    (xml-rpc/call*
-      (str "https://" (auth :spacename) ".backlog.jp/XML-RPC")
-      methodname
-      args
-      :request {:basic-auth [(auth :username)
-                             (auth :password)]})))
+  [method-name & args]
+  (io! "XML-RPC in transaction"
+   (let [xml (mc/unparse (mc/methodcall method-name args))
+         unparsed (assoc xml :content
+                         (conj (xml :content)
+                               {:tag :params :attrs nil :content []}))
+         body (-> unparsed xu/emit with-out-str)
+         auth *backlog-auth*
+         post-params {:content-type "text/xml;charset=UTF-8"
+                      :basic-auth [(auth :username) (auth :password)]}
+         endpoint-url (str "https://" (auth :spacename) ".backlog.jp/XML-RPC")
+         response (http/post endpoint-url (assoc post-params :body body))]
+     (-> response :body xu/to-xml mr/parse))))
 
-; FIXME:
-;(defn get-projects
-;  []
-;  (call (get-auth) :backlog.getProjects))
+(defn get-projects
+  []
+  (call :backlog.getProjects))
 
 (defmulti get-project class)
 
