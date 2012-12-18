@@ -159,10 +159,9 @@
   [project-id]
   (call :backlog.getProjectSummary project-id))
 
-; FIXME: BAPI-38
-;(defn get-project-summaries
-;  []
-;  (call :backlog.getProjectSummaries))
+(defn get-project-summaries
+  []
+  (call :backlog.getProjectSummaries))
 
 ; TODO: BAPI-39
 (defmulti get-user class)
