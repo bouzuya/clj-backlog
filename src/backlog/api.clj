@@ -151,10 +151,9 @@
   [id]
   (call :backlog.deleteComponent id))
 
-; FIXME: BAPI-36
-;(defn get-timeline
-;  []
-;  (call :backlog.getTimeline))
+(defn get-timeline
+  []
+  (call :backlog.getTimeline))
 
 (defn get-project-summary
   [project-id]
