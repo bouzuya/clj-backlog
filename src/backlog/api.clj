@@ -183,10 +183,9 @@
   []
   (call :backlog.getActivityTypes))
 
-; TODO: BAPI-42
 (defn get-statuses
   []
-  (throw (UnsupportedOperationException.)))
+  (call :backlog.getStatuses))
 
 ; TODO: BAPI-43
 (defn get-resolutions
