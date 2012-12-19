@@ -191,10 +191,9 @@
   []
   (call :backlog.getResolutions))
 
-; TODO: BAPI-44
 (defn get-priorities
   []
-  (throw (UnsupportedOperationException.)))
+  (call :backlog.getPriorities))
 
 ; TODO: BAPI-45
 (defn get-custom-fields
