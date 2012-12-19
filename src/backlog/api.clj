@@ -179,10 +179,9 @@
   [id]
   (call :backlog.getUserIcon id))
 
-; TODO: BAPI-41
 (defn get-activity-types
   []
-  (throw (UnsupportedOperationException.)))
+  (call :backlog.getActivityTypes))
 
 ; TODO: BAPI-42
 (defn get-statuses
