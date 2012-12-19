@@ -187,10 +187,9 @@
   []
   (call :backlog.getStatuses))
 
-; TODO: BAPI-43
 (defn get-resolutions
   []
-  (throw (UnsupportedOperationException.)))
+  (call :backlog.getResolutions))
 
 ; TODO: BAPI-44
 (defn get-priorities
