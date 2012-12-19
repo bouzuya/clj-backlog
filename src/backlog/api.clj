@@ -13,9 +13,11 @@
   [method-name & args]
   (io! "XML-RPC in transaction"
    (let [xml (mc/unparse (mc/methodcall method-name args))
-         unparsed (assoc xml :content
+         unparsed (if args
+                    xml
+                    (assoc xml :content
                          (conj (xml :content)
-                               {:tag :params :attrs nil :content []}))
+                               {:tag :params :attrs nil :content []})))
          body (-> unparsed xu/emit with-out-str)
          auth *backlog-auth*
          post-params {:content-type "text/xml;charset=UTF-8"
