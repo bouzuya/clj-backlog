@@ -165,7 +165,6 @@
   []
   (call :backlog.getProjectSummaries))
 
-; TODO: BAPI-39
 (defmulti get-user class)
 
 (defmethod get-user String
