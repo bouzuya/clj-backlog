@@ -1,5 +1,6 @@
 (ns backlog.api
   [:require
+   [backlog.util :as util]
    [clj-http.client :as http]
    [necessary-evil.core :as xml-rpc]
    [necessary-evil.methodcall :as mc]
@@ -71,8 +72,12 @@
   (call :backlog.getComments issue-id))
 
 (defn count-issue
-  [project-id]
-  (throw (UnsupportedOperationException.)))
+  [project-id & {:as opts}]
+  (call
+    :backlog.countIssue
+    (into {} (remove (comp nil? val)
+                     (merge {:projectId project-id}
+                            (into {} (map (fn [[k v]] [(util/backlog-keyword k) v]) opts)))))))
 
 (defn find-issue
   [project-id]
@@ -196,6 +201,7 @@
   (call :backlog.getPriorities))
 
 ; TODO: BAPI-45
+; NOTE: Max Plan Only
 (defn get-custom-fields
   []
   (throw (UnsupportedOperationException.)))
