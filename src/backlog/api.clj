@@ -80,8 +80,12 @@
                             (into {} (map (fn [[k v]] [(util/backlog-keyword k) v]) opts)))))))
 
 (defn find-issue
-  [project-id]
-  (throw (UnsupportedOperationException.)))
+  [project-id & {:as opts}]
+  (call
+    :backlog.findIssue
+    (into {} (remove (comp nil? val)
+                     (merge {:projectId project-id}
+                            (into {} (map (fn [[k v]] [(util/backlog-keyword k) v]) opts)))))))
 
 (defn create-issue
   [project-id summary]
