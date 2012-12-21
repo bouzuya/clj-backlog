@@ -88,10 +88,12 @@
                             (into {} (map (fn [[k v]] [(util/backlog-keyword k) v]) opts)))))))
 
 (defn create-issue
-  [project-id summary]
-  ; TODO: optional arguments
-  (call :backlog.createIssue {:projectId project-id
-                              :summary  summary}))
+  [project-id summary & {:as opts}]
+  (call :backlog.createIssue
+    (into {} (remove (comp nil? val)
+                     (merge {:projectId project-id
+                             :summary  summary}
+                            (into {} (map (fn [[k v]] [(util/backlog-keyword k) v]) opts)))))))
 
 (defn update-issue
   [key & {:as opts}]
