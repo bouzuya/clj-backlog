@@ -93,10 +93,13 @@
   (call :backlog.createIssue {:projectId project-id
                               :summary  summary}))
 
-; TODO: BAPI-24
 (defn update-issue
-  []
-  (throw (UnsupportedOperationException.)))
+  [key & {:as opts}]
+  (call
+    :backlog.updateIssue
+    (into {} (remove (comp nil? val)
+                     (merge {:key key}
+                            (into {} (map (fn [[k v]] [(util/backlog-keyword k) v]) opts)))))))
 
 ; TODO: BAPI-25
 (defn switch-status
