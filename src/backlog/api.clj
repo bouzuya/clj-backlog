@@ -101,10 +101,13 @@
                      (merge {:key key}
                             (into {} (map (fn [[k v]] [(util/backlog-keyword k) v]) opts)))))))
 
-; TODO: BAPI-25
 (defn switch-status
-  []
-  (throw (UnsupportedOperationException.)))
+  [key status-id & {:as opts}]
+  (call
+    :backlog.switchStatus
+    (into {} (remove (comp nil? val)
+                     (merge {:key key :statusId status-id}
+                            (into {} (map (fn [[k v]] [(util/backlog-keyword k) v]) opts)))))))
 
 (defn add-comment
   [issue-key content]
