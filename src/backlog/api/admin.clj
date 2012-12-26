@@ -1,9 +1,9 @@
-(ns backlog.api.admin)
+(ns backlog.api.admin
+  [:require [backlog.util :as util]])
 
-; TODO: BAPI-46
 (defn get-users
   []
-  (throw (UnsupportedOperationException.)))
+  (util/call :backlog.admin.getUsers))
 
 ; TODO: BAPI-47
 (defn add-user
