@@ -1,79 +1,53 @@
 (ns backlog.api
-  [:require
-   [backlog.util :as util]
-   [clj-http.client :as http]
-   [necessary-evil.core :as xml-rpc]
-   [necessary-evil.methodcall :as mc]
-   [necessary-evil.methodresponse :as mr]
-   [necessary-evil.xml-utils :as xu]])
-
-(declare ^:dynamic *backlog-auth*)
-
-;;; FIXME: this code is necessary-evil's code.
-(defn- call
-  [method-name & args]
-  (io! "XML-RPC in transaction"
-   (let [xml (mc/unparse (mc/methodcall method-name args))
-         unparsed (if args
-                    xml
-                    (assoc xml :content
-                         (conj (xml :content)
-                               {:tag :params :attrs nil :content []})))
-         body (-> unparsed xu/emit with-out-str)
-         auth *backlog-auth*
-         post-params {:content-type "text/xml;charset=UTF-8"
-                      :basic-auth [(auth :username) (auth :password)]}
-         endpoint-url (str "https://" (auth :spacename) ".backlog.jp/XML-RPC")
-         response (http/post endpoint-url (assoc post-params :body body))]
-     (-> response :body xu/to-xml mr/parse))))
+  [:require [backlog.util :as util]])
 
 (defn get-projects
   []
-  (call :backlog.getProjects))
+  (util/call :backlog.getProjects))
 
 (defmulti get-project class)
 
 (defmethod get-project String
   [project-key]
-  (call :backlog.getProject project-key))
+  (util/call :backlog.getProject project-key))
 
 (defmethod get-project Integer
   [project-id]
-  (call :backlog.getProject project-id))
+  (util/call :backlog.getProject project-id))
 
 (defn get-components
   [project-id]
-  (call :backlog.getComponents project-id))
+  (util/call :backlog.getComponents project-id))
 
 (defn get-versions
   [project-id]
-  (call :backlog.getVersions project-id))
+  (util/call :backlog.getVersions project-id))
 
 (defn get-users
   [project-id]
-  (call :backlog.getUsers project-id))
+  (util/call :backlog.getUsers project-id))
 
 (defn get-issue-types
   [project-id]
-  (call :backlog.getIssueTypes project-id))
+  (util/call :backlog.getIssueTypes project-id))
 
 (defmulti get-issue class)
 
 (defmethod get-issue String
   [issue-key]
-  (call :backlog.getIssue issue-key))
+  (util/call :backlog.getIssue issue-key))
 
 (defmethod get-issue Integer
   [issue-id]
-  (call :backlog.getIssue issue-id))
+  (util/call :backlog.getIssue issue-id))
 
 (defn get-comments
   [issue-id]
-  (call :backlog.getComments issue-id))
+  (util/call :backlog.getComments issue-id))
 
 (defn count-issue
   [project-id & {:as opts}]
-  (call
+  (util/call
     :backlog.countIssue
     (into {} (remove (comp nil? val)
                      (merge {:projectId project-id}
@@ -81,7 +55,7 @@
 
 (defn find-issue
   [project-id & {:as opts}]
-  (call
+  (util/call
     :backlog.findIssue
     (into {} (remove (comp nil? val)
                      (merge {:projectId project-id}
@@ -89,7 +63,7 @@
 
 (defn create-issue
   [project-id summary & {:as opts}]
-  (call :backlog.createIssue
+  (util/call :backlog.createIssue
     (into {} (remove (comp nil? val)
                      (merge {:projectId project-id
                              :summary  summary}
@@ -97,7 +71,7 @@
 
 (defn update-issue
   [key & {:as opts}]
-  (call
+  (util/call
     :backlog.updateIssue
     (into {} (remove (comp nil? val)
                      (merge {:key key}
@@ -105,7 +79,7 @@
 
 (defn switch-status
   [key status-id & {:as opts}]
-  (call
+  (util/call
     :backlog.switchStatus
     (into {} (remove (comp nil? val)
                      (merge {:key key :statusId status-id}
@@ -113,30 +87,30 @@
 
 (defn add-comment
   [issue-key content]
-  (call :backlog.addComment {:key issue-key :content content}))
+  (util/call :backlog.addComment {:key issue-key :content content}))
 
 (defn add-issue-type
   [project-id name color]
-  (call :backlog.addIssueType {:project_id project-id
+  (util/call :backlog.addIssueType {:project_id project-id
                                :name name
                                :color color}))
 
 (defn update-issue-type
   [id name color]
-  (call :backlog.updateIssueType {:id id
+  (util/call :backlog.updateIssueType {:id id
                                   :name name
                                   :color color}))
 
 (defn delete-issue-type
   [id & {:keys [substitute-id]}]
-  (call :backlog.deleteIssueType
+  (util/call :backlog.deleteIssueType
         (into {} (remove (comp nil? val)
                          {:id id
                           :substitute_id substitute-id}))))
 
 (defn add-version
   [project-id name & {:keys [start-date due-date]}]
-  (call :backlog.addVersion
+  (util/call :backlog.addVersion
         (into {} (remove (comp nil? val)
                          {:project_id project-id
                           :name name
@@ -145,7 +119,7 @@
 
 (defn update-version
   [id name & {:keys [start-date due-date archived]}]
-  (call :backlog.updateVersion
+  (util/call :backlog.updateVersion
         (into {} (remove (comp nil? val)
                          {:id id
                           :name name
@@ -155,62 +129,62 @@
 
 (defn delete-version
   [id]
-  (call :backlog.deleteVersion id))
+  (util/call :backlog.deleteVersion id))
 
 (defn add-component
   [project-id name]
-  (call :backlog.addComponent {:project_id project-id
+  (util/call :backlog.addComponent {:project_id project-id
                                :name name}))
 
 (defn update-component
   [id name]
-  (call :backlog.updateComponent {:id id :name name}))
+  (util/call :backlog.updateComponent {:id id :name name}))
 
 (defn delete-component
   [id]
-  (call :backlog.deleteComponent id))
+  (util/call :backlog.deleteComponent id))
 
 (defn get-timeline
   []
-  (call :backlog.getTimeline))
+  (util/call :backlog.getTimeline))
 
 (defn get-project-summary
   [project-id]
-  (call :backlog.getProjectSummary project-id))
+  (util/call :backlog.getProjectSummary project-id))
 
 (defn get-project-summaries
   []
-  (call :backlog.getProjectSummaries))
+  (util/call :backlog.getProjectSummaries))
 
 (defmulti get-user class)
 
 (defmethod get-user String
   [id]
-  (call :backlog.getUser id))
+  (util/call :backlog.getUser id))
 
 (defmethod get-user Integer
   [id]
-  (call :backlog.getUser id))
+  (util/call :backlog.getUser id))
 
 (defn get-user-icon
   [id]
-  (call :backlog.getUserIcon id))
+  (util/call :backlog.getUserIcon id))
 
 (defn get-activity-types
   []
-  (call :backlog.getActivityTypes))
+  (util/call :backlog.getActivityTypes))
 
 (defn get-statuses
   []
-  (call :backlog.getStatuses))
+  (util/call :backlog.getStatuses))
 
 (defn get-resolutions
   []
-  (call :backlog.getResolutions))
+  (util/call :backlog.getResolutions))
 
 (defn get-priorities
   []
-  (call :backlog.getPriorities))
+  (util/call :backlog.getPriorities))
 
 ; TODO: BAPI-45
 ; NOTE: Max Plan Only
