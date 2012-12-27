@@ -50,10 +50,9 @@
   [id]
   (util/call :backlog.admin.deleteProject {:id id}))
 
-; TODO: BAPI-54
 (defn get-project-users
-  []
-  (throw (UnsupportedOperationException.)))
+  [project-id]
+  (util/call :backlog.admin.getProjectUsers project-id))
 
 ; TODO: BAPI-55
 (defn add-project-user
