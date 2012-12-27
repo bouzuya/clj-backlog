@@ -65,10 +65,10 @@
              {:project_id project-id
               :user_id user-id}))
 
-; TODO: BAPI-57
 (defn delete-project-user
-  []
-  (throw (UnsupportedOperationException.)))
+  [project-id user-id]
+  (util/call :backlog.admin.deleteProjectUser
+             {:project_id project-id :user_id user-id}))
 
 ; TODO: BAPI-58
 (defn add-custom-field
