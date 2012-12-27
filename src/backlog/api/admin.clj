@@ -31,9 +31,15 @@
   []
   (util/call :backlog.admin.getProjects))
 
-; TODO: BAPI-51
 (defn add-project
-  []
+  [name key & {:as opts}]
+  (util/call :backlog.admin.addProject
+             (into {} (remove (comp nil? val)
+                              (merge {:name name
+                                      :key key}
+                                     (into {} (map (fn [[k v]] [(util/backlog-keyword k) v]) opts)))))))
+
+
   (throw (UnsupportedOperationException.)))
 
 ; TODO: BAPI-52
