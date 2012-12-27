@@ -39,13 +39,12 @@
                                       :key key}
                                      (into {} (map (fn [[k v]] [(util/backlog-keyword k) v]) opts)))))))
 
-
-  (throw (UnsupportedOperationException.)))
-
-; TODO: BAPI-52
 (defn update-project
-  []
-  (throw (UnsupportedOperationException.)))
+  [id & {:as opts}]
+  (util/call :backlog.admin.updateProject
+             (into {} (remove (comp nil? val)
+                              (merge {:id id}
+                                     (into {} (map (fn [[k v]] [(util/backlog-keyword k) v]) opts)))))))
 
 ; TODO: BAPI-53
 (defn delete-project
