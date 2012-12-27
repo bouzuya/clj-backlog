@@ -16,10 +16,12 @@
                              :role role}
                             (into {} (map (fn [[k v]] [(util/backlog-keyword k) v]) opts)))))))
 
-; TODO: BAPI-48
 (defn update-user
-  []
-  (throw (UnsupportedOperationException.)))
+  [id & {:as opts}]
+  (util/call :backlog.admin.updateUser
+             (into {} (remove (comp nil? val)
+                              (merge {:id id}
+                                     (into {} (map (fn [[k v]] [(util/backlog-keyword k) v]) opts)))))))
 
 ; TODO: BAPI-49
 (defn delete-user
