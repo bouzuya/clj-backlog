@@ -46,10 +46,9 @@
                               (merge {:id id}
                                      (into {} (map (fn [[k v]] [(util/backlog-keyword k) v]) opts)))))))
 
-; TODO: BAPI-53
 (defn delete-project
-  []
-  (throw (UnsupportedOperationException.)))
+  [id]
+  (util/call :backlog.admin.deleteProject {:id id}))
 
 ; TODO: BAPI-54
 (defn get-project-users
