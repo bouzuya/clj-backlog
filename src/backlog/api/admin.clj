@@ -5,10 +5,16 @@
   []
   (util/call :backlog.admin.getUsers))
 
-; TODO: BAPI-47
 (defn add-user
-  []
-  (throw (UnsupportedOperationException.)))
+  [user-id password-md5 name mail-address role & {:as opts}]
+  (util/call :backlog.admin.addUser
+    (into {} (remove (comp nil? val)
+                     (merge {:user_id user-id
+                             :password_md5 password-md5
+                             :name name
+                             :mail_address mail-address
+                             :role role}
+                            (into {} (map (fn [[k v]] [(util/backlog-keyword k) v]) opts)))))))
 
 ; TODO: BAPI-48
 (defn update-user
