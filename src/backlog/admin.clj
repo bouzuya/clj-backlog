@@ -1,4 +1,4 @@
-(ns backlog.api.admin
+(ns backlog.admin
   [:require [backlog.util :as util]])
 
 (defn get-users

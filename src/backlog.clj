@@ -1,4 +1,4 @@
-(ns backlog.api
+(ns backlog
   [:require [backlog.util :as util]])
 
 (defn get-projects
