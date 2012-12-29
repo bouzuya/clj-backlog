@@ -4,7 +4,11 @@
 
 This library is Backlog API wrapper for Clojure.
 
-Version 0.2.0 supports `backlog.*`, but it does not support `backlog.admin.*` yet.
+Version 0.3.0 does not support the functions related to `CustomField`.
+
+## Usage
+
+[Backlog API for Clojure の使いかた(in Japanese)](http://bouzuya.github.com/2012/12/29/backlog-api-for-clojure/)
 
 ## License
 
