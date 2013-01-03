@@ -27,14 +27,26 @@
      (-> response :body xu/to-xml mr/parse))))
 
 (def backlog-snake-case-keywords
-  #{:created-on-min
+  #{:user-id
+    :password-md5
+    :mail-address
+    :mail-setting
+    :use-chart
+    :start-date
+    :due-date
+    :estimated-hours
+    :actual-hours
+    :created-on
+    :created-on-min
     :created-on-max
+    :updated-on
     :updated-on-min
     :updated-on-max
     :start-date-min
     :start-date-max
     :due-date-min
     :due-date-max
+    :substitute-id
     :custom-fields})
 
 (defn backlog-keyword
