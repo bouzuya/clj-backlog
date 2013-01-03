@@ -1,4 +1,4 @@
-(defproject org.clojars.bouzuya/backlog "0.3.0"
+(defproject org.clojars.bouzuya/backlog "0.3.1"
   :description "Backlog API for Clojure (unofficial). "
   :url "https://github.com/bouzuya/clj-backlog"
   :license {:name "Eclipse Public License"
